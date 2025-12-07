@@ -29,8 +29,7 @@ const io = new Server(server, {
 
 // Postgres connection pool – your Render DB
 const pool = new Pool({
-  connectionString:
-    "postgresql://chat_database_3w8r_user:AovKPzsPHt4WON03Yk720CK4IEHZZ1Ry@dpg-d4qib98gjchc73bcjf60-a/chat_database_3w8r",
+  connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
 });
 
