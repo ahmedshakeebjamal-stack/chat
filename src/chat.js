@@ -39,6 +39,19 @@ function Chat({ username }) {
       }));
       setChat(restored);
     };
+    
+    useEffect(() => {
+  const messageHandler = (data) => {
+    console.log("receive_message", data);
+    setChat((prev) => [...prev, { user: data.user, text: decrypt(data.text) }]);
+  };
+
+  socket.on("receive_message", messageHandler);
+
+  return () => {
+    socket.off("receive_message", messageHandler);
+  };
+}, []);
 
     const messageHandler = (data) => {
       const decryptedText = decrypt(data.text);
