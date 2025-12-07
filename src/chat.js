@@ -29,17 +29,17 @@ function Chat({ username }) {
   const [chat, setChat] = useState([]);
 
   // Load history from server (Postgres)
-  useEffect(() => {
-    const historyHandler = (rows) => {
-      // rows: [{ username, text_encrypted }]
-      const restored = rows.map((row) => ({
-        user: row.username,
-        cipher: row.text_encrypted,
-        text: decrypt(row.text_encrypted),
-      }));
-      setChat(restored);
-    };
-    
+  // useEffect(() => {
+  //   const historyHandler = (rows) => {
+  //     // rows: [{ username, text_encrypted }]
+  //     const restored = rows.map((row) => ({
+  //       user: row.username,
+  //       cipher: row.text_encrypted,
+  //       text: decrypt(row.text_encrypted),
+  //     }));
+  //     setChat(restored);
+  //   };
+
     useEffect(() => {
   const messageHandler = (data) => {
     console.log("receive_message", data);
