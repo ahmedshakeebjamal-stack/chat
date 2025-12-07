@@ -29,29 +29,17 @@ function Chat({ username }) {
   const [chat, setChat] = useState([]);
 
   // Load history from server (Postgres)
-  // useEffect(() => {
-  //   const historyHandler = (rows) => {
-  //     // rows: [{ username, text_encrypted }]
-  //     const restored = rows.map((row) => ({
-  //       user: row.username,
-  //       cipher: row.text_encrypted,
-  //       text: decrypt(row.text_encrypted),
-  //     }));
-  //     setChat(restored);
-  //   };
-
-    useEffect(() => {
-  const messageHandler = (data) => {
-    console.log("receive_message", data);
-    setChat((prev) => [...prev, { user: data.user, text: decrypt(data.text) }]);
-  };
-
-  socket.on("receive_message", messageHandler);
-
-  return () => {
-    socket.off("receive_message", messageHandler);
-  };
-}, []);
+  useEffect(() => {
+    const historyHandler = (rows) => {
+      // rows: [{ username, text_encrypted }]
+      const restored = rows.map((row) => ({
+        user: row.username,
+        cipher: row.text_encrypted,
+        text: decrypt(row.text_encrypted),
+      }));
+      setChat(restored);
+    };
+    
 
     const messageHandler = (data) => {
       const decryptedText = decrypt(data.text);
